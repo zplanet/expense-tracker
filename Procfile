@@ -1,0 +1,1 @@
+web: target/universal/stage/bin/expense -Dhttp.port=$PORT -DapplyEvolutions.default=true

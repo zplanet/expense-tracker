@@ -22,11 +22,11 @@ object Application extends Controller {
 
 	def test = DBAction { implicit rs =>
 		Logger.info("++++++++++++++++++++++++++++++++++++++++++++++")
-		Logger.info(Play.current.configuration.getString("db.default.driver").get)
-		Logger.info(Play.current.configuration.getString("db.default.url").get)
-		Logger.info(Play.current.configuration.getString("db.default.user").get)
-		Logger.info(Play.current.configuration.getString("db.default.password").get)
-		Logger.info(Play.current.configuration.getString("evolutionplugin").get)
+		//Logger.info(Play.current.configuration.getString("db.default.driver").get)
+		//Logger.info(Play.current.configuration.getString("db.default.url").get)
+		//Logger.info(Play.current.configuration.getString("db.default.user").get)
+		//Logger.info(Play.current.configuration.getString("db.default.password").get)
+		Logger.info("evolutionplugin: " + Play.current.configuration.getString("evolutionplugin").get)
 		Logger.info("++++++++++++++++++++++++++++++++++++++++++++++")
 
 		users += User("abc@abc.com", "a")

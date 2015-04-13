@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html ng-app="ExpenseTrackerApp">
+<head>
+	<title>Expense Tracker</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/common.css")">
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/index.css")">
+	<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+</head>
+<body ng-controller="MainController">
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="@routes.Application.index">Expense Tracker</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+        	<li><a href="@routes.Application.signup">Sign up</a></li>
+        </ul>
+        <form class="navbar-form navbar-right">
+          <div class="form-group">
+            <input type="text" placeholder="Email" class="form-control">
+          </div>
+          <div class="form-group">
+            <input type="password" placeholder="Password" class="form-control">
+          </div>
+          <button type="submit" class="btn btn-success">Sign in</button>
+        </form>
+      </div><!--/.navbar-collapse -->
+    </div>
+  </nav>
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1>EXPENSE TRACKER</h1>
+      <p>This video shows why you need expense tracker.
+      </p>
+      <iframe class="video" src="https://www.youtube.com/embed/p4Murq5x_pw" frameborder="0" allowfullscreen></iframe>
+      <p><a class="btn btn-lg btn-success" href="@routes.Application.signup" role="button">Sign up today</a></p>
+    </div>
+  </div>
+
+  <script src="@routes.Assets.at("javascripts/jquery.min.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.at("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.at("javascripts/angular.min.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.at("javascripts/index.js")" type="text/javascript"></script>
+</body>
+</html>

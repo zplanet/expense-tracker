@@ -1,0 +1,22 @@
+@(users: List[User], expenses: List[Expense])
+
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+	<table>
+		<tr><th>email</th><th>password</th></tr>
+		@for(u <- users){ 
+			<tr><td>@u.email</td><td>@u.password</td></tr>
+		}
+	</table>
+	<hr />
+	<table>
+		<tr><th>amount</th><th>date</th><th>description</th></tr>
+		@for(e <- expenses){ 
+			<tr><td>@e.amount</td><td>@e.date</td><td>@e.description</td></tr>
+		}
+	</table>
+</body>
+</html>

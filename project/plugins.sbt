@@ -1,10 +1,10 @@
 resolvers += "Typesafe repository" at "https://repo.typesafe.com/typesafe/releases/"
 
 // Heroku resolver
-//resolvers += Resolver.url("heroku-sbt-plugin-releases", url("http://dl.bintray.com/heroku/sbt-plugins/"))(Resolver.ivyStylePatterns)
+resolvers += Resolver.url("heroku-sbt-plugin-releases", url("http://dl.bintray.com/heroku/sbt-plugins/"))(Resolver.ivyStylePatterns)
 
 // Heroku plugin
-//addSbtPlugin("com.heroku" % "sbt-heroku" % "0.3.0")
+addSbtPlugin("com.heroku" % "sbt-heroku" % "0.3.0")
 
 // The Play plugin
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.8")

@@ -26,6 +26,7 @@ object Application extends Controller {
 		Logger.info(Play.current.configuration.getString("db.default.url").get)
 		Logger.info(Play.current.configuration.getString("db.default.user").get)
 		Logger.info(Play.current.configuration.getString("db.default.password").get)
+		Logger.info(Play.current.configuration.getString("evolutionplugin").get)
 		Logger.info("++++++++++++++++++++++++++++++++++++++++++++++")
 
 		users += User("abc@abc.com", "a")

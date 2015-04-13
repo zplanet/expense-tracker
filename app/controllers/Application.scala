@@ -22,12 +22,12 @@ object Application extends Controller {
 
 	def test = DBAction { implicit rs =>
 		Logger.info("++++++++++++++++++++++++++++++++++++++++++++++")
-		Logger.info(Play.current.configuration.getString("db.default.driver"))
-		Logger.info(Play.current.configuration.getString("db.default.url"))
-		Logger.info(Play.current.configuration.getString("db.default.user"))
-		Logger.info(Play.current.configuration.getString("db.default.password"))
+		Logger.info(Play.current.configuration.getString("db.default.driver").get)
+		Logger.info(Play.current.configuration.getString("db.default.url").get)
+		Logger.info(Play.current.configuration.getString("db.default.user").get)
+		Logger.info(Play.current.configuration.getString("db.default.password").get)
 		Logger.info("++++++++++++++++++++++++++++++++++++++++++++++")
-		
+
 		users += User("abc@abc.com", "a")
 		//expenses += Expense(100.0, "2015-04-15", "haha")
 		Ok(views.html.test(users.list, expenses.list))

@@ -5,6 +5,7 @@
 <head>
 </head>
 <body>
+	<h1>@play.Play.application().configuration().getString("db.driver")</h1>
 	<table>
 		<tr><th>email</th><th>password</th></tr>
 		@for(u <- users){ 

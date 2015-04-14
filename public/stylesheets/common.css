@@ -2,3 +2,22 @@ body {
 	padding-top: 50px;
 	padding-bottom: 20px;
 }
+
+.fade {
+	text-align: center;
+	display: none;
+	opacity: 0;
+	-webkit-transition: opacity 1s linear;
+	-moz-transition: opacity 1s linear;
+	-o-transition: opacity 1s linear;
+	transition: opacity 1s linear;
+}
+
+.fade.in {
+	display: block;
+	opacity: 1;
+}
+
+.hide {
+	display: none;
+}

@@ -34,6 +34,9 @@
 
   <div class="container">
 
+    <div class="alert alert-danger fade" ng-class="{in: errorMessage !== ''}" role="alert">{{errorMessage}}</div>
+    <div class="alert alert-success fade" ng-class="{in: successMessage !== ''}" role="alert">{{successMessage}}</div>
+
     <form class="form-signup" ng-submit="signup()">
       <h2 class="form-signup-heading">Please sign up</h2>
   

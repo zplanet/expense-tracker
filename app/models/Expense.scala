@@ -1,6 +1,5 @@
 package models
 
-//import play.api.db.slick.Config.driver.simple._
 import scala.slick.driver.PostgresDriver.simple._
 
 case class Expense(amount: Double, date: java.sql.Date, description: String, id: Option[Int] = None)

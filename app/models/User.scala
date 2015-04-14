@@ -1,6 +1,5 @@
 package models
 
-//import play.api.db.slick.Config.driver.simple._
 import scala.slick.driver.PostgresDriver.simple._
 
 case class User(email: String, password: String, id: Option[Int] = None)

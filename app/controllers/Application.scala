@@ -21,12 +21,11 @@ object Application extends Controller {
 	}
 
 	def test = DBAction { implicit rs =>
-		Logger.info("++++++++++++++++++++++++++++++++++++++++++++++")
 		//Logger.info(Play.current.configuration.getString("db.default.driver").get)
 		//Logger.info(Play.current.configuration.getString("db.default.url").get)
 		//Logger.info(Play.current.configuration.getString("db.default.user").get)
 		//Logger.info(Play.current.configuration.getString("db.default.password").get)
-		Logger.info("++++++++++++++++++++++++++++++++++++++++++++++")
+//web: target/universal/stage/bin/expense -Dhttp.port=${PORT} -DapplyEvolutions.default=true -Ddb.default.driver=org.postgresql.Driver -Ddb.default.url=${DATABASE_URL} -Ddb.default.user=${DB_USER} -Ddb.default.password=${DB_PW}
 
 		users += User("abc@abc.com", "a")
 		//expenses += Expense(100.0, "2015-04-15", "haha")

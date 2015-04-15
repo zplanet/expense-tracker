@@ -9,16 +9,15 @@ import play.api.db.slick._
 import scala.slick.driver.PostgresDriver.simple._
 import models._
 
-case class UserForm(email: String, password1: String, password2: String)
-
-object UserController extends Controller {
+object ExpenseController extends Controller {
 
 	val users = TableQuery[Users]
+	val expenses = TableQuery[Expenses]
 
-	val signupForm = Form(
+	val expenseForm = Form(
 		mapping(
-			"email" -> email,
-			"password1" -> nonEmptyText,
+			"amount" -> number,
+			"date" -> nonEmptyText,
 			"password2" -> nonEmptyText
 			)(UserForm.apply)(UserForm.unapply))
 

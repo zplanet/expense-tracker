@@ -2,8 +2,8 @@
 	angular.module('ExpenseTrackerApp', [])
 	.controller('MainController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
 
-		$scope.email = 'abc@abc.com';
-		$scope.password = 'a';
+		$scope.email = '';
+		$scope.password = '';
 		$scope.errorMessage = '';
 		$scope.successMessage = '';
 		$scope.user = '';

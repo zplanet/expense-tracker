@@ -6,7 +6,10 @@
 GET     /                           controllers.Application.index
 GET     /test                       controllers.Application.test
 GET     /signup                     controllers.Application.signup
+GET     /logout                     controllers.Application.logout
+GET     /expense                    controllers.Application.expense
 POST    /createuser                 controllers.UserController.create
+POST    /checkuser                  controllers.UserController.check
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

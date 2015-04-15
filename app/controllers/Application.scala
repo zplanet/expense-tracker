@@ -20,7 +20,24 @@ object Application extends Controller {
 		Ok(views.html.signup())
 	}
 
-	def test = DBAction { implicit rs =>
+	def checkCookie(f:Cookie => Result) = Action { implicit request =>
+		request.cookies.get("user") match {
+			case Some(c) => f(c)
+			case None => Redirect(routes.Application.index)
+		}
+	}
+
+	def expense = checkCookie(cookie => Ok(views.html.expense(cookie.value)))
+
+	def logout = Action {
+		Ok("Bye").discardingCookies(DiscardingCookie("user"))
+	}
+
+	def test = DBAction { implicit request =>
+		request.cookies.get("user") match {
+			case Some(x) => Logger.info(x.value)
+			case None => Logger.info("no cookie")
+		}
 		Ok(views.html.test(users.list, expenses.list))
 	}
 }

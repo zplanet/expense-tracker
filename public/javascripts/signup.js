@@ -11,7 +11,7 @@
 		$scope.signup = function() {
 
 			$http.post(
-				'/createuser', 
+				'/users', 
 				{email: $scope.email, password1: $scope.password1, password2: $scope.password2})
 			.success(function(data, status, headers, config) {
 				$scope.successMessage = data;

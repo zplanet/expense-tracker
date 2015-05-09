@@ -22,14 +22,7 @@ object UserController extends Controller {
 			"password2" -> nonEmptyText
 			)(UserForm.apply)(UserForm.unapply))
 
-	val loginForm = Form(
-		mapping(
-			"email" -> email,
-			"password" -> nonEmptyText,
-			"id" -> optional(number)
-			)(User.apply)(User.unapply))
-
-	def create = DBAction { implicit request =>
+	def signup = DBAction { implicit request =>
 
 		val form = signupForm.bindFromRequest
 		
@@ -55,21 +48,17 @@ object UserController extends Controller {
 		}
 	}
 
-	def check = DBAction { implicit request =>
+	def login(id: String) = DBAction { implicit request =>
 
-		val form = loginForm.bindFromRequest
-
-		if (form.hasErrors) {
-			Status(520)("Not an email format")
-		}
-		else {
-			val data = form.get
-
-			if (0 < users.filter(x => x.email === data.email && x.password === data.password).length.run) {
-				Ok("user=" + data.email).withCookies(Cookie("user", data.email))
-			}
-			else {
-				Status(540)("Wrong email or password.")
+		request.headers.get("Authorization") match {
+			case None 		=> Status(540)("Wrong email or password.")
+			case Some(pwd)	=> {
+				if (0 < users.filter(x => x.email === id && x.password === pwd).length.run) {
+					Ok("user=" + id).withCookies(Cookie("user", id))
+				}
+				else {
+					Status(540)("Wrong email or password.")
+				}
 			}
 		}
 	}

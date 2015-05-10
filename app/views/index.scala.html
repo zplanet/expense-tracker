@@ -1,62 +1,16 @@
+@import tags._
 @(user: String)
 
 <!DOCTYPE html>
 
 <html ng-app="ExpenseTrackerApp">
 <head>
-	<title>Expense Tracker</title>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
-	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/common.css")">
+  @head()
   <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/index.css")">
-	<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
 </head>
 <body ng-controller="MainController" @if(!user.isEmpty) {ng-init="user = '@user'"}>
 
-  <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="@routes.Application.index">Expense Tracker</a>
-      </div>
-      <div id="navbar" class="navbar-collapse collapse">
-        <div ng-class="{hide: user !== ''}">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="@routes.Application.signup">Sign up</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" ng-submit="signin()">
-            <div class="form-group">
-              <input type="text" ng-model="email" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" ng-model="password" placeholder="Password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-          </form>
-        </div>
-        <div class="hide" ng-class="{show: user !== ''}">
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{user}}<span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="@routes.Application.logout">Logout</a></li>
-              </ul>
-            </li>
-            <li><a href="@routes.Application.expense">Expense</a></li>
-            <li><a href="">Report</a></li>
-            <li><a href="">Graph</a></li>
-          </ul>
-        </div>
-      </div><!--/.navbar-collapse -->
-    </div>
-  </nav>
+  @menu("index")
 
   <div class="alert alert-danger fade" ng-class="{in: errorMessage !== ''}" role="alert">{{errorMessage}}</div>
   <div class="alert alert-success fade" ng-class="{in: successMessage !== ''}" role="alert">{{successMessage}}</div>
@@ -72,9 +26,7 @@
     </div>
   </div>
 
-  <script src="@routes.Assets.at("javascripts/jquery.min.js")" type="text/javascript"></script>
-  <script src="@routes.Assets.at("javascripts/bootstrap.min.js")" type="text/javascript"></script>
-  <script src="@routes.Assets.at("javascripts/angular.min.js")" type="text/javascript"></script>
+  @js()
   <script src="@routes.Assets.at("javascripts/index.js")" type="text/javascript"></script>
 </body>
 </html>

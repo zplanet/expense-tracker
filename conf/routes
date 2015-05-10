@@ -7,9 +7,12 @@ GET     /                           controllers.Application.index
 GET     /signup                     controllers.Application.signup
 GET     /logout                     controllers.Application.logout
 GET     /expense                    controllers.Application.expense
+GET     /report                     controllers.Application.report
+GET     /graph                      controllers.Application.graph
 
 POST    /users                      controllers.UserController.signup
 GET     /users/:id                  controllers.UserController.login(id: String)
+GET     /expenses                   controllers.ExpenseController.getAll
 POST    /expenses                   controllers.ExpenseController.create
 
 # Map static resources from the /public folder to the /assets URL path

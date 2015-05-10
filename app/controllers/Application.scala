@@ -24,6 +24,8 @@ object Application extends Controller {
 	}
 
 	def expense = checkCookie(cookie => Ok(views.html.expense(cookie.value)))
+	def report = checkCookie(cookie => Ok(views.html.report(cookie.value)))
+	def graph = checkCookie(cookie => Ok(views.html.graph(cookie.value)))
 
 	def logout = Action {
 		Redirect(routes.Application.index).discardingCookies(DiscardingCookie("user"))

@@ -8,13 +8,21 @@ import play.api.data.Forms._
 import play.api.db.slick._
 import scala.slick.driver.PostgresDriver.simple._
 import models._
+import play.api.libs.json._
 
 case class ExpenseForm(amount: BigDecimal, date: java.util.Date, note: String)
 
 object ExpenseController extends Controller {
 
-	val users = TableQuery[Users]
 	val expenses = TableQuery[Expenses]
+
+	implicit val expenseWrites = new Writes[Expense] {
+	  def writes(exp: Expense) = Json.obj(
+	  	"date"		-> exp.date.toString,
+	    "amount"	-> exp.amount,
+	    "note"		-> exp.description
+	  )
+	}
 
 	val expenseForm = Form(
 		mapping(
@@ -24,33 +32,21 @@ object ExpenseController extends Controller {
 			)(ExpenseForm.apply)(ExpenseForm.unapply))
 
 	def create = DBAction { implicit request =>
-		Ok("not implemented yet")
-		// val form = signupForm.bindFromRequest
 		
-		// if (form.hasErrors) {
-		// 	Status(520)("Not an email format")
-		// }
-		// else {
-		// 	val data = form.get
+		val form = expenseForm.bindFromRequest
 
-		// 	if (data.password1 == data.password2) {
-
-		// 		if (0 < users.filter(_.email === data.email).length.run) {
-		// 			Status(530)("Email already exists.")
-		// 		}
-		// 		else {
-		// 			users += User(data.email, data.password1)
-		// 			Ok("Welcome to Expense Tracker")
-		// 		}
-		// 	}
-		// 	else {
-		// 		Status(510)("Password is not matching")
-		// 	}
-		// }
+		if (form.hasErrors) {
+			Status(502)("Please, Check your input.")
+		}
+		else {
+			val data = form.get
+			expenses += Expense(data.amount.toDouble, new java.sql.Date(data.date.getTime()), data.note)
+			Ok("Data is added successfully.")
+		}
 	}
 
-	def check = DBAction { implicit request =>
-		Ok("not implemented yet")
+	def getAll = DBAction { implicit request =>
+		Ok(Json.toJson(expenses.sortBy(_.date.desc).list))
 		// val form = loginForm.bindFromRequest
 
 		// if (form.hasErrors) {

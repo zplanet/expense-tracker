@@ -1,0 +1,93 @@
+@(caller: String)
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="@routes.Application.index">Expense Tracker</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+
+@caller match {
+	case "index" => {
+        <div ng-class="{hide: user !== ''}">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="@routes.Application.signup">Sign up</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" ng-submit="signin()">
+            <div class="form-group">
+              <input type="text" ng-model="email" placeholder="Email" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" ng-model="password" placeholder="Password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">Sign in</button>
+          </form>
+        </div>
+        <div class="hide" ng-class="{show: user !== ''}">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{user}}<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="@routes.Application.logout">Logout</a></li>
+              </ul>
+            </li>
+            <li><a href="@routes.Application.expense">Expense</a></li>
+            <li><a href="@routes.Application.report">Report</a></li>
+            <li><a href="@routes.Application.graph">Graph</a></li>
+          </ul>
+        </div>
+	}
+	case "expense" => {
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{user}}<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="@routes.Application.logout">Logout</a></li>
+            </ul>
+          </li>
+          <li class="active"><a href="@routes.Application.expense">Expense</a></li>
+          <li><a href="@routes.Application.report">Report</a></li>
+          <li><a href="@routes.Application.graph">Graph</a></li>
+        </ul>
+	}
+	case "report" => {
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{user}}<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="@routes.Application.logout">Logout</a></li>
+            </ul>
+          </li>
+          <li><a href="@routes.Application.expense">Expense</a></li>
+          <li class="active"><a href="@routes.Application.report">Report</a></li>
+          <li><a href="@routes.Application.graph">Graph</a></li>
+        </ul>
+	}
+	case "graph" => {
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{user}}<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="@routes.Application.logout">Logout</a></li>
+            </ul>
+          </li>
+          <li><a href="@routes.Application.expense">Expense</a></li>
+          <li><a href="@routes.Application.report">Report</a></li>
+          <li class="active"><a href="@routes.Application.graph">Graph</a></li>
+        </ul>
+	}
+	case "signup" => {
+        <ul class="nav navbar-nav navbar-right">
+        </ul>
+	}
+}
+
+      </div><!--/.navbar-collapse -->
+    </div>
+  </nav>

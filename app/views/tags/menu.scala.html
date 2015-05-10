@@ -13,8 +13,7 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
 
-@caller match {
-	case "index" => {
+@if("index" == caller) {
         <div ng-class="{hide: user !== ''}">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="@routes.Application.signup">Sign up</a></li>
@@ -29,6 +28,8 @@
             <button type="submit" class="btn btn-success">Sign in</button>
           </form>
         </div>
+}
+
         <div class="hide" ng-class="{show: user !== ''}">
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
@@ -37,56 +38,11 @@
                 <li><a href="@routes.Application.logout">Logout</a></li>
               </ul>
             </li>
-            <li><a href="@routes.Application.expense">Expense</a></li>
-            <li><a href="@routes.Application.report">Report</a></li>
-            <li><a href="@routes.Application.graph">Graph</a></li>
+            <li @if("expense" == caller) {class="active"}><a href="@routes.Application.expense">Expense</a></li>
+            <li @if("report" == caller) {class="active"}><a href="@routes.Application.report">Report</a></li>
+            <li @if("graph" == caller) {class="active"}><a href="@routes.Application.graph">Graph</a></li>
           </ul>
         </div>
-	}
-	case "expense" => {
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{user}}<span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="@routes.Application.logout">Logout</a></li>
-            </ul>
-          </li>
-          <li class="active"><a href="@routes.Application.expense">Expense</a></li>
-          <li><a href="@routes.Application.report">Report</a></li>
-          <li><a href="@routes.Application.graph">Graph</a></li>
-        </ul>
-	}
-	case "report" => {
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{user}}<span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="@routes.Application.logout">Logout</a></li>
-            </ul>
-          </li>
-          <li><a href="@routes.Application.expense">Expense</a></li>
-          <li class="active"><a href="@routes.Application.report">Report</a></li>
-          <li><a href="@routes.Application.graph">Graph</a></li>
-        </ul>
-	}
-	case "graph" => {
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{user}}<span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="@routes.Application.logout">Logout</a></li>
-            </ul>
-          </li>
-          <li><a href="@routes.Application.expense">Expense</a></li>
-          <li><a href="@routes.Application.report">Report</a></li>
-          <li class="active"><a href="@routes.Application.graph">Graph</a></li>
-        </ul>
-	}
-	case "signup" => {
-        <ul class="nav navbar-nav navbar-right">
-        </ul>
-	}
-}
 
       </div><!--/.navbar-collapse -->
     </div>

@@ -47,20 +47,10 @@ object ExpenseController extends Controller {
 
 	def getAll = DBAction { implicit request =>
 		Ok(Json.toJson(expenses.sortBy(_.date.desc).list))
-		// val form = loginForm.bindFromRequest
+	}
 
-		// if (form.hasErrors) {
-		// 	Status(520)("Not an email format")
-		// }
-		// else {
-		// 	val data = form.get
-
-		// 	if (0 < users.filter(x => x.email === data.email && x.password === data.password).length.run) {
-		// 		Ok("user=" + data.email).withCookies(Cookie("user", data.email))
-		// 	}
-		// 	else {
-		// 		Status(540)("Wrong email or password.")
-		// 	}
-		// }
+	def getMonthlyData = DBAction { implicit request =>
+		//Ok(Json.toJson(expenses.sortBy(_.date.desc).list))
+		Ok("")
 	}
 }

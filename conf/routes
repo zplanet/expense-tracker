@@ -13,6 +13,7 @@ GET     /graph                      controllers.Application.graph
 POST    /users                      controllers.UserController.signup
 GET     /users/:id                  controllers.UserController.login(id: String)
 GET     /expenses                   controllers.ExpenseController.getAll
+GET     /expenses/monthly           controllers.ExpenseController.getMonthlyData
 POST    /expenses                   controllers.ExpenseController.create
 
 # Map static resources from the /public folder to the /assets URL path

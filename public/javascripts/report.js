@@ -4,17 +4,18 @@
 
 		$scope.expenses = [];
 		$scope.errorMessage = '';
-		$scope.successMessage = '';
+
+		$scope.warningMessage = "Loading...";
 
 		$http.get('/expenses')
 		.success(function(data, status, headers, config) {
-			//$scope.successMessage = data;
-			//$timeout(function(){$scope.successMessage = '';}, 2000);
 			$scope.expenses = data;
+			$scope.warningMessage = "";
 		})
 		.error(function(data, status, headers, config) {
-			//$scope.errorMessage = data;
-			//$timeout(function(){$scope.errorMessage = '';}, 2000);
+			$scope.warningMessage = "";
+			$scope.errorMessage = data;
+			$timeout(function(){$scope.errorMessage = '';}, 2000);
 		});
 	}]);
 })();

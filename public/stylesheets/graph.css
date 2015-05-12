@@ -1,8 +1,14 @@
 
-#chart_div {
+.large-chart {
 	width: 700px;
 	height: 500px;
 	margin: 20px auto;
+}
+
+.small-chart {
+	width: 330px;
+	height: 200px;
+	margin: 10px auto;
 }
 
 .hide {
@@ -11,17 +17,4 @@
 
 .show {
 	display: block;
-}
-
-h1 {
-	text-align: center; 
-	display:none;
-}
-
-@media (max-width: 700px) {
-	#chart_div {
-		width: 330px;
-		height: 200px;
-		margin: 10px auto;
-	}
 }

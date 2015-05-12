@@ -9,12 +9,13 @@
 		$scope.add = function() {
 			$http.post(
 				'/expenses', 
-				{amount: $scope.amount, date: $scope.date.toISOString().substr(0, 10), note: $scope.note})
+				{amount: $scope.amount, date: $scope.date.toISOString(), note: $scope.note})
 			.success(function(data, status, headers, config) {
 				$scope.successMessage = data;
 				$timeout(function(){$scope.successMessage = '';}, 2000);
+
 				$scope.date = new Date();
-				$scope.amount = 0.0;
+				$scope.amount = null;
 				$scope.note = "";
 			})
 			.error(function(data, status, headers, config) {

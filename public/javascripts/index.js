@@ -10,15 +10,14 @@
 
 		$scope.signin = function() {
 
-			$http.get(
-				'/users/' + $scope.email, 
-				{headers: { 'Authorization': $scope.password }})
+			$http.post('/users/login', {email: $scope.email, password: $scope.password})
 			.success(function(data, status, headers, config) {
 				$scope.user = $scope.email;
 				$scope.successMessage = 'Welcome ' + $scope.email;
 				$timeout(function(){$scope.successMessage = '';}, 2000);
 			})
 			.error(function(data, status, headers, config) {
+				console.log(data)
 				$scope.errorMessage = data;
 				$timeout(function(){$scope.errorMessage = '';}, 2000);
 			});

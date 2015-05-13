@@ -11,7 +11,7 @@ GET     /report                     controllers.Application.report
 GET     /graph                      controllers.Application.graph
 
 POST    /users                      controllers.UserController.signup
-GET     /users/:id                  controllers.UserController.login(id: String)
+POST    /users/login                controllers.UserController.login
 GET     /expenses                   controllers.ExpenseController.getAll
 GET     /expenses/graph/monthly     controllers.ExpenseController.getMonthlyData4Graph
 POST    /expenses                   controllers.ExpenseController.create

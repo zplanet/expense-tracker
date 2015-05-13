@@ -10,18 +10,20 @@
 
 		$scope.signup = function() {
 
-			$http.post(
-				'/users', 
-				{email: $scope.email, password1: $scope.password1, password2: $scope.password2})
+			if ($scope.password1 !== $scope.password2) {
+				$scope.errorMessage = 'Password does not match the confirm password.';
+				$timeout(function(){$scope.errorMessage = '';}, 2000);
+				$scope.password1 = '';
+				$scope.password2 = '';
+				return;
+			}
+
+			$http.post('/users', {email: $scope.email, password: $scope.password1})
 			.success(function(data, status, headers, config) {
 				$scope.successMessage = data;
 				$timeout(function(){document.location.href = '/';}, 2000);
 			})
 			.error(function(data, status, headers, config) {
-				if (510 === status) { // password mismatch
-					$scope.password1 = '';
-					$scope.password2 = '';
-				}
 				$scope.errorMessage = data;
 				$timeout(function(){$scope.errorMessage = '';}, 2000);
 			});

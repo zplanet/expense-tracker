@@ -1,6 +1,7 @@
 package controllers
 
 import play.api._
+import play.api.http._
 import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
@@ -52,7 +53,7 @@ object UserController extends Controller {
 			val data = form.get
 
 			if (0 < users.filter(x => x.email === data.email && x.password === data.password).length.run) {
-				Ok("user=" + data.email).withCookies(Cookie("user", data.email))
+				Ok("good to go").withHeaders(HeaderNames.AUTHORIZATION -> data.email)
 			}
 			else {
 				Status(540)("Wrong email or password.")

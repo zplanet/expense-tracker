@@ -20,9 +20,9 @@ object UserController extends Controller {
 		mapping(
 			"email" -> email,
 			"password" -> nonEmptyText
-			)(UserForm.apply)(UserForm.unapply))
+		)(UserForm.apply)(UserForm.unapply))
 
-	def signup = DBAction { implicit request =>
+	def check(f: (String, String) => Result)(implicit request: DBSessionRequest[AnyContent]) = {
 
 		val form = userForm.bindFromRequest
 
@@ -31,12 +31,18 @@ object UserController extends Controller {
 		}
 		else {
 			val data = form.get
+			f(data.email, data.password)
+		}
+	}
 
-			if (0 < users.filter(_.email === data.email).length.run) {
+	def signup = DBAction { implicit request =>
+		
+		check { (email, password) => 			
+			if (0 < users.filter(_.email === email).length.run) {
 				Status(530)("Email already exists.")
 			}
 			else {
-				users += User(data.email, data.password)
+				users += User(email, password)
 				Ok("Welcome to Expense Tracker")
 			}
 		}
@@ -44,16 +50,9 @@ object UserController extends Controller {
 
 	def login = DBAction { implicit request =>
 
-		val form = userForm.bindFromRequest
-
-		if (form.hasErrors) {
-			Status(520)("Not an email format")
-		}
-		else {
-			val data = form.get
-
-			if (0 < users.filter(x => x.email === data.email && x.password === data.password).length.run) {
-				Ok("good to go").withHeaders(HeaderNames.AUTHORIZATION -> data.email)
+		check { (email, password) => 
+			if (0 < users.filter(x => x.email === email && x.password === password).length.run) {
+				Ok("good to go").withHeaders(HeaderNames.AUTHORIZATION -> email)
 			}
 			else {
 				Status(540)("Wrong email or password.")

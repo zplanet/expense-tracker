@@ -17,11 +17,9 @@ object Application extends Controller {
 	def report	= checkCookie(cookie => Ok(views.html.report(cookie.value)), () => Redirect(routes.Application.index))
 	def graph	= checkCookie(cookie => Ok(views.html.graph(cookie.value)), () => Redirect(routes.Application.index))
 
-	def signup = Action {
-		Ok(views.html.signup())
-	}
+	def main = Action { Ok(views.html.main() )}
+	
+	def signup = Action { Ok(views.html.signup()) }
 
-	def logout = Action {
-		Redirect(routes.Application.index).discardingCookies(DiscardingCookie("user"))
-	}
+	def logout = Action { Redirect(routes.Application.index).discardingCookies(DiscardingCookie("user")) }
 }

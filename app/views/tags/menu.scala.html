@@ -1,4 +1,3 @@
-@(caller: String)
 
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -13,10 +12,9 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
 
-@if("index" == caller) {
         <div ng-class="{hide: user !== ''}">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="@routes.Application.signup">Sign up</a></li>
+            <li ng-class="{active: '/signup' === $location.path()}"><a href="@routes.Application.signup">Sign up</a></li>
           </ul>
           <form class="navbar-form navbar-right" ng-submit="signin()">
             <div class="form-group">
@@ -28,7 +26,6 @@
             <button type="submit" class="btn btn-success">Sign in</button>
           </form>
         </div>
-}
 
         <div class="hide" ng-class="{show: user !== ''}">
           <ul class="nav navbar-nav navbar-right">
@@ -38,12 +35,12 @@
                 <li><a href="@routes.Application.logout">Logout</a></li>
               </ul>
             </li>
-            <li @if("expense" == caller) {class="active"}><a href="@routes.Application.expense">Expense</a></li>
-            <li @if("report" == caller) {class="active"}><a href="@routes.Application.report">Report</a></li>
-            <li @if("graph" == caller) {class="active"}><a href="@routes.Application.graph">Graph</a></li>
+            <li ng-class="{active: '/expense' === $location.path()}"><a href="@routes.Application.expense">Expense</a></li>
+            <li ng-class="{active: '/report' === $location.path()}"><a href="@routes.Application.report">Report</a></li>
+            <li ng-class="{active: '/graph' === $location.path()}"><a href="@routes.Application.graph">Graph</a></li>
           </ul>
         </div>
 
-      </div><!--/.navbar-collapse -->
+      </div>
     </div>
   </nav>

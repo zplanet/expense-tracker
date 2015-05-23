@@ -10,7 +10,7 @@
 </head>
 <body ng-controller="MainController" ng-init="user = '@user'">
 
-  @menu("expense")
+  @menu()
 
   <div class="alert alert-danger fade" ng-class="{in: errorMessage !== ''}" role="alert">{{errorMessage}}</div>
   <div class="alert alert-success fade" ng-class="{in: successMessage !== ''}" role="alert">{{successMessage}}</div>

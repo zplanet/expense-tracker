@@ -5,7 +5,6 @@
 <html ng-app="ExpenseTrackerApp">
 <head>
   @head()
-  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/index.css")">
 </head>
 <body ng-controller="MainController">
 
@@ -15,16 +14,8 @@
   <div class="alert alert-warning fade" ng-class="{in: warningMessage !== ''}" role="alert">{{warningMessage}}</div>
   <div class="alert alert-success fade" ng-class="{in: successMessage !== ''}" role="alert">{{successMessage}}</div>
 
-<!--   <pre>$location.path() = {{$location.path()}}</pre>
-  <pre>$route.current.templateUrl = {{$route.current.templateUrl}}</pre>
-  <pre>$route.current.params = {{$route.current.params}}</pre>
-  <pre>$route.current.scope.name = {{$route.current.scope.name}}</pre>
-  <pre>$routeParams = {{$routeParams}}</pre>
- -->
   <div ng-view></div>
 
   @js()
-  <script src="@routes.Assets.at("javascripts/angular-route.min.js")" type="text/javascript"></script>
-  <script src="@routes.Assets.at("javascripts/index.js")" type="text/javascript"></script>
 </body>
 </html>

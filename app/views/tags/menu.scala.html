@@ -16,7 +16,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li ng-class="{active: '/signup' === $location.path()}"><a href="@routes.Application.signup">Sign up</a></li>
           </ul>
-          <form class="navbar-form navbar-right" ng-submit="login()">
+          <form ng-class="{hide: '/signup' === $location.path()}" class="navbar-form navbar-right" ng-submit="login()">
             <div class="form-group">
               <input type="text" ng-model="email" placeholder="Email" class="form-control">
             </div>

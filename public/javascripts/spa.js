@@ -1,6 +1,6 @@
 (function(){
 
-	angular.module('ExpenseTrackerApp', ['ngRoute'])
+	angular.module('ExpenseTrackerApp', ['ngRoute', 'ui.chart'])
 
 	.controller('MainController', function($scope, $route, $routeParams, $location, $http, $timeout) {
 
@@ -115,15 +115,35 @@
 
 		$scope.expenses = [];
 
+		$scope.chartOptions = { 
+			//title: 'Spendings',
+			series:[{renderer: jQuery.jqplot.BarRenderer}],
+			axesDefaults: {
+				tickRenderer: jQuery.jqplot.CanvasAxisTickRenderer,
+				tickOptions: {
+					angle: -30,
+					fontSize: '10pt'
+				}
+			},
+			axes: {
+				xaxis: {
+					renderer: jQuery.jqplot.CategoryAxisRenderer
+				},
+				yaxis: {
+					autoscale: true
+				}
+			}
+		};
+
 		$scope.$parent.warningMessage = "Loading...";
 
-		$http.get('/expenses')
+		$http.get('/expenses/graph/monthly')
 		.success(function(data, status, headers, config) {
+			$scope.$parent.warningMessage = '';
 			$scope.expenses = data;
-			$scope.$parent.warningMessage = "";
 		})
 		.error(function(data, status, headers, config) {
-			$scope.warningMessage = "";
+			$scope.$parent.warningMessage = '';
 			$scope.$parent.showError(data);
 		});
 	})

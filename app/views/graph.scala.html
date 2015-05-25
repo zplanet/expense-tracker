@@ -1,26 +1,4 @@
-@import tags._
-@(user: String)
-
-<!DOCTYPE html>
-
-<html ng-app="ExpenseTrackerApp">
-<head>
-  @head()
-  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/graph.css")">
-</head>
-<body ng-controller="MainController" ng-init="user = '@user'">
-
-  @menu()
-
-  <div class="alert alert-danger fade" ng-class="{in: errorMessage !== ''}" role="alert">{{errorMessage}}</div>
-  <div class="alert alert-warning fade" ng-class="{in: warningMessage !== ''}" role="alert">{{warningMessage}}</div>
 
   <div class="container">
     <div id="chart" ng-class="chartStyle"></div>
   </div>
-
-  @js()
-  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-  <script src="@routes.Assets.at("javascripts/graph.js")" type="text/javascript"></script>
-</body>
-</html>

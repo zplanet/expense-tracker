@@ -52,6 +52,7 @@ object UserController extends Controller {
 
 		check { (email, password) => 
 			if (0 < users.filter(x => x.email === email && x.password === password).length.run) {
+				println(request.headers)
 				Ok("good to go").withHeaders(HeaderNames.AUTHORIZATION -> email)
 			}
 			else {

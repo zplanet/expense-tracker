@@ -1,5 +1,4 @@
 @import tags._
-@(user: String)
 
 <!DOCTYPE html>
 
@@ -8,11 +7,12 @@
   @head()
   <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/index.css")">
 </head>
-<body ng-controller="MainController" @if(!user.isEmpty) {ng-init="user = '@user'"}>
+<body ng-controller="MainController">
 
   @menu()
 
   <div class="alert alert-danger fade" ng-class="{in: errorMessage !== ''}" role="alert">{{errorMessage}}</div>
+  <div class="alert alert-warning fade" ng-class="{in: warningMessage !== ''}" role="alert">{{warningMessage}}</div>
   <div class="alert alert-success fade" ng-class="{in: successMessage !== ''}" role="alert">{{successMessage}}</div>
 
 <!--   <pre>$location.path() = {{$location.path()}}</pre>

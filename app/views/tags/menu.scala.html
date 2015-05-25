@@ -16,14 +16,14 @@
           <ul class="nav navbar-nav navbar-right">
             <li ng-class="{active: '/signup' === $location.path()}"><a href="@routes.Application.signup">Sign up</a></li>
           </ul>
-          <form class="navbar-form navbar-right" ng-submit="signin()">
+          <form class="navbar-form navbar-right" ng-submit="login()">
             <div class="form-group">
               <input type="text" ng-model="email" placeholder="Email" class="form-control">
             </div>
             <div class="form-group">
               <input type="password" ng-model="password" placeholder="Password" class="form-control">
             </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
+            <button type="submit" class="btn btn-success">Login</button>
           </form>
         </div>
 
@@ -32,7 +32,7 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{user}}<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="@routes.Application.logout">Logout</a></li>
+                <li><a ng-click="logout()">Logout</a></li>
               </ul>
             </li>
             <li ng-class="{active: '/expense' === $location.path()}"><a href="@routes.Application.expense">Expense</a></li>

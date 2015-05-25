@@ -1,5 +1,7 @@
 (function(){
+
 	angular.module('ExpenseTrackerApp', ['ngRoute'])
+
 	.controller('MainController', function($scope, $route, $routeParams, $location, $http, $timeout) {
 
 		$scope.$route = $route;
@@ -7,10 +9,11 @@
 		$scope.$routeParams = $routeParams;
 
 		$scope.errorMessage = '';
+		$scope.warningMessage = '';
 		$scope.successMessage = '';
 
-		$scope.email = '';
-		$scope.password = '';
+		$scope.email = 'abc@abc.com';
+		$scope.password = 'a';
 		$scope.user = '';
 
 		$scope.showError = function(msg) {
@@ -28,8 +31,8 @@
 			}, 2000);
 		}
 
-		$scope.signin = function() {
-			
+		$scope.login = function() {
+
 			$http.post('/users/login', {email: $scope.email, password: $scope.password})
 			.success(function(data, status, headers, config) {
 				$scope.user = $scope.email;
@@ -39,7 +42,12 @@
 				$scope.showError(data);
 			});
 		}
+
+		$scope.logout = function() {
+			$scope.user = '';
+		}
 	})
+
 	.controller('SignupController', function($scope, $http) {
 
 		$scope.email = '';
@@ -57,6 +65,7 @@
 
 			$http.post('/users', {email: $scope.email, password: $scope.password1})
 			.success(function(data, status, headers, config) {
+				$scope.$parent.email = $scope.email;
 				$scope.$parent.showSuccess(data, '/');
 			})
 			.error(function(data, status, headers, config) {
@@ -64,15 +73,83 @@
 			});
 		}
 	})
-	.config(function($routeProvider, $locationProvider) {
-		$routeProvider
-		.when('/', {
-			templateUrl: '/main'
+
+	.controller('ExpenseController', function($scope, $http) {
+
+		$scope.date = new Date();
+
+		$scope.add = function() {
+			$http.post(
+				'/expenses', 
+				{amount: $scope.amount, date: $scope.date.toISOString(), note: $scope.note})
+			.success(function(data, status, headers, config) {
+				$scope.$parent.showSuccess(data);
+				$scope.date = new Date();
+				$scope.amount = null;
+				$scope.note = "";
+			})
+			.error(function(data, status, headers, config) {
+				$scope.$parent.showError(data);
+			});
+		}
+	})
+
+	.controller('ReportController', function($scope, $http) {
+
+		$scope.expenses = [];
+
+		$scope.$parent.warningMessage = "Loading...";
+
+		$http.get('/expenses')
+		.success(function(data, status, headers, config) {
+			$scope.expenses = data;
+			$scope.$parent.warningMessage = "";
 		})
-		.when('/signup', {
-			templateUrl: '/signup',
-			controller: 'SignupController'
+		.error(function(data, status, headers, config) {
+			$scope.warningMessage = "";
+			$scope.$parent.showError(data);
 		});
+	})
+
+	.controller('GraphController', function($scope, $http) {
+
+		$scope.expenses = [];
+
+		$scope.$parent.warningMessage = "Loading...";
+
+		$http.get('/expenses')
+		.success(function(data, status, headers, config) {
+			$scope.expenses = data;
+			$scope.$parent.warningMessage = "";
+		})
+		.error(function(data, status, headers, config) {
+			$scope.warningMessage = "";
+			$scope.$parent.showError(data);
+		});
+	})
+
+	.config(function($routeProvider, $locationProvider) {
+		
+		$routeProvider
+			.when('/', {
+				templateUrl: '/main'
+			})
+			.when('/signup', {
+				templateUrl: '/signup',
+				controller: 'SignupController'
+			})
+			.when('/expense', {
+				templateUrl: '/expense',
+				controller: 'ExpenseController'
+			})
+			.when('/report', {
+				templateUrl: '/report',
+				controller: 'ReportController'
+			})
+			.when('/graph', {
+				templateUrl: '/graph',
+				controller: 'GraphController'
+			});
 
 		$locationProvider.html5Mode({
 			enabled: true,

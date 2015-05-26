@@ -1,6 +1,7 @@
 package controllers
 
 import play.api._
+import play.api.http._
 import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
@@ -38,7 +39,14 @@ object ExpenseController extends Controller {
 			"note" -> nonEmptyText
 			)(ExpenseForm.apply)(ExpenseForm.unapply))
 
-	def create = DBAction { implicit request =>
+	def checkAuthorization(success: DBSessionRequest[AnyContent] => Result)(implicit maybeApp: MaybeApplication) = DBAction { implicit request =>
+		request.headers.get(HeaderNames.AUTHORIZATION) match {
+			case Some(x)	=> success(request)
+			case None 		=> Unauthorized("fail to get data")
+		}
+	}
+
+	def create = checkAuthorization { implicit request =>
 		
 		val form = expenseForm.bindFromRequest
 
@@ -52,11 +60,9 @@ object ExpenseController extends Controller {
 		}
 	}
 
-	def getAll = DBAction { implicit request =>
-		Ok(Json.toJson(expenses.sortBy(_.date.desc).list))
-	}
+	def getAll = checkAuthorization { implicit request => Ok(Json.toJson(expenses.sortBy(_.date.desc).list)) }
 
-	def getMonthlyData4Graph = DBAction { implicit request =>
+	def getMonthlyData4Graph = checkAuthorization { implicit request =>
 		val xs = 
 			expenses
 			.groupBy(e => e.date.substring(0, 7))

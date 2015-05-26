@@ -37,6 +37,7 @@
 			.success(function(data, status, headers, config) {
 				$scope.user = $scope.email;
 				$scope.showSuccess('Welcome ' + $scope.email);
+				$http.defaults.headers.common.Authorization = data;
 			})
 			.error(function(data, status, headers, config) {
 				$scope.showError(data);
@@ -102,11 +103,11 @@
 
 		$http.get('/expenses')
 		.success(function(data, status, headers, config) {
-			$scope.expenses = data;
 			$scope.$parent.warningMessage = "";
+			$scope.expenses = data;
 		})
 		.error(function(data, status, headers, config) {
-			$scope.warningMessage = "";
+			$scope.$parent.warningMessage = "";
 			$scope.$parent.showError(data);
 		});
 	})

@@ -12,13 +12,18 @@
 		$scope.warningMessage = '';
 		$scope.successMessage = '';
 
-		$scope.email = 'abc@abc.com';
-		$scope.password = 'a';
+		$scope.email = '';
+		$scope.password = '';
 		$scope.user = '';
 
-		$scope.showError = function(msg) {
+		$scope.showError = function(msg, url) {
 			$scope.errorMessage = msg;
-			$timeout(function(){$scope.errorMessage = '';}, 2000);
+			$timeout(function(){
+				$scope.errorMessage = '';
+				if ('undefined' !== typeof url) {
+					$location.url(url);
+				}
+			}, 2000);
 		}
 
 		$scope.showSuccess= function(msg, url) {
@@ -33,19 +38,35 @@
 
 		$scope.login = function() {
 
-			$http.post('/users/login', {email: $scope.email, password: $scope.password})
+			$http.post('/users/login', {email: $scope.email, password: CryptoJS.SHA256($scope.password).toString()})
 			.success(function(data, status, headers, config) {
-				$scope.user = $scope.email;
 				$scope.showSuccess('Welcome ' + $scope.email);
-				$http.defaults.headers.common.Authorization = data;
+				$scope.setAuthorization($scope.email, data);
+				$scope.clearLoginInfo();
 			})
 			.error(function(data, status, headers, config) {
 				$scope.showError(data);
+				$scope.clearLoginInfo();
 			});
 		}
 
-		$scope.logout = function() {
+		$scope.setAuthorization = function(id, data) {
+			$scope.user = id;
+			$http.defaults.headers.common.Authorization = data;
+		}
+
+		$scope.clearAuthorization = function() {
 			$scope.user = '';
+			$http.defaults.headers.common.Authorization = '';
+		}
+
+		$scope.clearLoginInfo = function() {
+			$scope.email = '';
+			$scope.password = '';
+		}
+
+		$scope.logout = function() {
+			$scope.clearAuthorization();
 		}
 	})
 
@@ -90,7 +111,10 @@
 				$scope.note = "";
 			})
 			.error(function(data, status, headers, config) {
-				$scope.$parent.showError(data);
+				if (401 === status) {
+					$scope.$parent.clearAuthorization();
+				}
+				$scope.$parent.showError(data, '/');
 			});
 		}
 	})
@@ -103,12 +127,22 @@
 
 		$http.get('/expenses')
 		.success(function(data, status, headers, config) {
+
 			$scope.$parent.warningMessage = "";
-			$scope.expenses = data;
+			
+			if (data.length < 1) {
+				$scope.$parent.showError("no data");
+			}
+			else {
+				$scope.expenses = data;
+			}
 		})
 		.error(function(data, status, headers, config) {
+			if (401 === status) {
+				$scope.$parent.clearAuthorization();
+			}
 			$scope.$parent.warningMessage = "";
-			$scope.$parent.showError(data);
+			$scope.$parent.showError(data, '/');
 		});
 	})
 
@@ -117,7 +151,6 @@
 		$scope.expenses = [];
 
 		$scope.chartOptions = { 
-			//title: 'Spendings',
 			series:[{renderer: jQuery.jqplot.BarRenderer}],
 			axesDefaults: {
 				tickRenderer: jQuery.jqplot.CanvasAxisTickRenderer,
@@ -140,12 +173,22 @@
 
 		$http.get('/expenses/graph/monthly')
 		.success(function(data, status, headers, config) {
+
 			$scope.$parent.warningMessage = '';
-			$scope.expenses = data;
+
+			if (data[0].length < 1) {
+				$scope.$parent.showError("no data");
+			}
+			else {
+				$scope.expenses = data;
+			}
 		})
 		.error(function(data, status, headers, config) {
+			if (401 === status) {
+				$scope.$parent.clearAuthorization();
+			}
 			$scope.$parent.warningMessage = '';
-			$scope.$parent.showError(data);
+			$scope.$parent.showError(data, '/');
 		});
 	})
 

@@ -41,7 +41,9 @@ object ExpenseController extends Controller {
 
 	def checkAuthorization(success: DBSessionRequest[AnyContent] => Result)(implicit maybeApp: MaybeApplication) = DBAction { implicit request =>
 		request.headers.get(HeaderNames.AUTHORIZATION) match {
-			case Some(x)	=> success(request)
+			case Some(auth)	=> {
+				success(request)
+			}
 			case None 		=> Unauthorized("fail to get data")
 		}
 	}

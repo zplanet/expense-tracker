@@ -1,5 +1,13 @@
 (function(){
 
+	$(function() {
+		$('.nav a').on('click', function(){ 
+			if($('.navbar-toggle').css('display') !='none') {
+				$(".navbar-toggle").trigger( "click" );
+			}
+		});
+	});
+
 	angular.module('ExpenseTrackerApp', ['ngRoute', 'ui.chart'])
 
 	.controller('MainController', function($scope, $route, $routeParams, $location, $http, $timeout) {
@@ -67,6 +75,7 @@
 
 		$scope.logout = function() {
 			$scope.clearAuthorization();
+			$location.url('/');
 		}
 	})
 
@@ -181,6 +190,7 @@
 			}
 			else {
 				$scope.expenses = data;
+				console.log(data)
 			}
 		})
 		.error(function(data, status, headers, config) {

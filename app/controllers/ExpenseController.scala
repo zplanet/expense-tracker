@@ -71,6 +71,6 @@ object ExpenseController extends Controller {
 			.map { case (date, group) => (date, group.map(_.amount).sum.get) }.list
 			.sortBy (_._1)
 
-		Ok(JsArray(Seq(Json.toJson(xs))))
+		Ok(Json.toJson(xs))
 	}
 }

@@ -8,7 +8,7 @@
 		});
 	});
 
-	angular.module('ExpenseTrackerApp', ['ngRoute', 'ui.chart'])
+	angular.module('ExpenseTrackerApp', ['ngRoute', 'chart.js'])
 
 	.controller('MainController', function($scope, $route, $routeParams, $location, $http, $timeout) {
 
@@ -157,26 +157,8 @@
 
 	.controller('GraphController', function($scope, $http) {
 
-		$scope.expenses = [];
-
-		$scope.chartOptions = { 
-			series:[{renderer: jQuery.jqplot.BarRenderer}],
-			axesDefaults: {
-				tickRenderer: jQuery.jqplot.CanvasAxisTickRenderer,
-				tickOptions: {
-					angle: -30,
-					fontSize: '10pt'
-				}
-			},
-			axes: {
-				xaxis: {
-					renderer: jQuery.jqplot.CategoryAxisRenderer
-				},
-				yaxis: {
-					autoscale: true
-				}
-			}
-		};
+		$scope.labels = [];
+		$scope.data = [[]];
 
 		$scope.$parent.warningMessage = "Loading...";
 
@@ -189,8 +171,10 @@
 				$scope.$parent.showError("no data");
 			}
 			else {
-				$scope.expenses = data;
-				console.log(data)
+				angular.forEach(data, function(v, k){
+					$scope.labels.push(v[0]);
+					$scope.data[0].push(v[1]);
+				});
 			}
 		})
 		.error(function(data, status, headers, config) {

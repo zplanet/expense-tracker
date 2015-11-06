@@ -16,33 +16,42 @@
 		$scope.$location = $location;
 		$scope.$routeParams = $routeParams;
 
-		$scope.errorMessage = '';
-		$scope.warningMessage = '';
-		$scope.successMessage = '';
+		$scope.message = '';
+		$scope.messageStyle = '';
 
 		$scope.email = '';
 		$scope.password = '';
 		$scope.user = '';
 
-		$scope.showError = function(msg, url) {
-			$scope.errorMessage = msg;
-			$timeout(function(){
-				$scope.errorMessage = '';
-				if ('undefined' !== typeof url) {
-					$location.url(url);
-				}
-			}, 2000);
+		$scope.showWarning = function(msg) {
+			
+			if (!msg || 0 === msg.length) {
+				$scope.messageStyle = '';
+			}
+			else {
+				$scope.messageStyle = 'alert-warning in';
+			}
+			
+			$scope.message = msg;
 		}
 
-		$scope.showSuccess= function(msg, url) {
-			$scope.successMessage = msg;
-			$timeout(function(){
-				$scope.successMessage = '';
-				if ('undefined' !== typeof url) {
-					$location.url(url);
-				}
-			}, 2000);
+		var showMessage = function(msgStyle) {
+			return function(msg, url) {
+				$scope.message = msg;
+				$scope.messageStyle = msgStyle;
+				
+				$timeout(function(){
+					$scope.message = '';
+					$scope.messageStyle = '';
+					if ('undefined' !== typeof url) {
+						$location.url(url);
+					}
+				}, 2000);
+			}
 		}
+
+		$scope.showError = showMessage('alert-danger in');
+		$scope.showSuccess = showMessage('alert-success in');
 
 		$scope.login = function() {
 
@@ -132,12 +141,12 @@
 
 		$scope.expenses = [];
 
-		$scope.$parent.warningMessage = "Loading...";
+		$scope.$parent.showWarning("Loading...");
 
 		$http.get('/expenses')
 		.success(function(data, status, headers, config) {
 
-			$scope.$parent.warningMessage = "";
+			$scope.$parent.showWarning("");
 			
 			if (data.length < 1) {
 				$scope.$parent.showError("no data");
@@ -150,7 +159,7 @@
 			if (401 === status) {
 				$scope.$parent.clearAuthorization();
 			}
-			$scope.$parent.warningMessage = "";
+			$scope.$parent.showWarning("");
 			$scope.$parent.showError(data, '/');
 		});
 	})
@@ -160,12 +169,12 @@
 		$scope.labels = [];
 		$scope.data = [[]];
 
-		$scope.$parent.warningMessage = "Loading...";
+		$scope.$parent.showWarning("Loading...");
 
 		$http.get('/expenses/graph/monthly')
 		.success(function(data, status, headers, config) {
 
-			$scope.$parent.warningMessage = '';
+			$scope.$parent.showWarning("");
 
 			if (data[0].length < 1) {
 				$scope.$parent.showError("no data");
@@ -181,7 +190,7 @@
 			if (401 === status) {
 				$scope.$parent.clearAuthorization();
 			}
-			$scope.$parent.warningMessage = '';
+			$scope.$parent.showWarning("");
 			$scope.$parent.showError(data, '/');
 		});
 	})

@@ -4,11 +4,6 @@
 
 # Home page
 GET     /                           controllers.Application.index
-GET     /main                       controllers.Application.main
-GET     /signup                     controllers.Application.signup
-GET     /expense                    controllers.Application.expense
-GET     /report                     controllers.Application.report
-GET     /graph                      controllers.Application.graph
 
 POST    /users                      controllers.UserController.signup
 POST    /users/login                controllers.UserController.login

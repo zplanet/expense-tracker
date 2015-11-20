@@ -199,22 +199,22 @@
 		
 		$routeProvider
 			.when('/', {
-				templateUrl: '/main'
+				templateUrl: '/assets/main.html'
 			})
 			.when('/signup', {
-				templateUrl: '/signup',
+				templateUrl: '/assets/signup.html',
 				controller: 'SignupController'
 			})
 			.when('/expense', {
-				templateUrl: '/expense',
+				templateUrl: '/assets/expense.html',
 				controller: 'ExpenseController'
 			})
 			.when('/report', {
-				templateUrl: '/report',
+				templateUrl: '/assets/report.html',
 				controller: 'ReportController'
 			})
 			.when('/graph', {
-				templateUrl: '/graph',
+				templateUrl: '/assets/graph.html',
 				controller: 'GraphController'
 			});
 

@@ -14,7 +14,7 @@
 
         <div ng-class="{hide: user !== ''}">
           <ul class="nav navbar-nav navbar-right">
-            <li ng-class="{active: '/signup' === $location.path()}"><a href="@routes.Application.signup">Sign up</a></li>
+            <li ng-class="{active: '/signup' === $location.path()}"><a href="/signup">Sign up</a></li>
           </ul>
           <form ng-class="{hide: '/signup' === $location.path()}" class="navbar-form navbar-right" ng-submit="login()">
             <div class="form-group">
@@ -35,9 +35,9 @@
                 <li><a ng-click="logout()">Logout</a></li>
               </ul>
             </li>
-            <li ng-class="{active: '/expense' === $location.path()}"><a href="@routes.Application.expense">Expense</a></li>
-            <li ng-class="{active: '/report' === $location.path()}"><a href="@routes.Application.report">Report</a></li>
-            <li ng-class="{active: '/graph' === $location.path()}"><a href="@routes.Application.graph">Graph</a></li>
+            <li ng-class="{active: '/expense' === $location.path()}"><a href="/expense">Expense</a></li>
+            <li ng-class="{active: '/report' === $location.path()}"><a href="/report">Report</a></li>
+            <li ng-class="{active: '/graph' === $location.path()}"><a href="/graph">Graph</a></li>
           </ul>
         </div>
 
